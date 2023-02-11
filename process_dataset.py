@@ -38,6 +38,7 @@ def caesar():
 
     if args.sort_label:
         sort_class_label(args.data_path, args.save_path, args.min_audio_num)
+        print("sorting label")
 
     else:
         print("Nothing have done")
