@@ -14,5 +14,10 @@ apus is a bird name.
 
 ②Second Step(process bird dataset)
 
-If you have dowmload you bird sounds that you want,now we should sort out you bird labels
+If you have dowmload you bird sounds that you want,now we should sort out you bird labels.
+
+
+```
+python process_dataset.py --sort_label --data_path ./data/xeno-canto-dataset --save_path ./bird_dataset/class_label.xlsx
+```
 
