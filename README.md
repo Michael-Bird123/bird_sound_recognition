@@ -21,3 +21,8 @@ If you have dowmload you bird sounds that you want,now we should sort out you bi
 python process_dataset.py --sort_label --data_path ./data/xeno-canto-dataset --save_path ./bird_dataset/class_label.xlsx
 ```
 
+After sorting out bird labels,we should cut the audio data into 5 second-slice.
+
+```
+python process_dataset.py --cut_data --data_path ./data/xeno-canto-dataset --save_path ./cut_data/xeno-canto-dataset --save_audio_syntax .mp3
+```
