@@ -31,12 +31,12 @@ def sort_class_label(data_path, save_path, min_audio_num=10):
     df.to_excel(save_path)
 
 
-def cut_audio(data_path, save_path, cut_second=5, save_audio_syntax=".mp3"):
+def cut_audio(data_path, save_path, cut_second=5, save_audio_extension=".mp3"):
     if data_path == "":
         print("data path is null.")
         return -1
-    if save_audio_syntax == ".mp3" or save_audio_syntax == ".wav":
-        print("save_audio_syntax is ", save_audio_syntax)
+    if save_audio_extension == ".mp3" or save_audio_extension == ".wav":
+        print("save_audio_syntax is ", save_audio_extension)
     else:
         print("save audio syntax is error.")
         return -1
@@ -73,15 +73,15 @@ def cut_audio(data_path, save_path, cut_second=5, save_audio_syntax=".mp3"):
                         save_name = list(audio_name)
                         save_name.insert(-4, "_" + str(count))
                         save_name = ''.join(save_name)
-                        save_name = save_name[0:-4] + save_audio_syntax
+                        save_name = save_name[0:-4] + save_audio_extension
                         save_path = save_data_path + "\\" + save_name
 
                         data = data.astype("int16")
                         data = data.tobytes()
                         sound = AudioSegment(data=data, sample_width=2, frame_rate=fs, channels=1)
-                        if save_audio_syntax == ".mp3":
+                        if save_audio_extension == ".mp3":
                             sound.export(save_path, format="mp3", bitrate="128k")
-                        elif save_audio_syntax == ".wav":
+                        elif save_audio_extension == ".wav":
                             sound.export(save_path, format="wav")
 
                         print("Saving file path：", save_path)
@@ -95,15 +95,15 @@ def cut_audio(data_path, save_path, cut_second=5, save_audio_syntax=".mp3"):
                             save_name = list(audio_name)
                             save_name.insert(-4, "_" + str(count))
                             save_name = ''.join(save_name)
-                            save_name = save_name[0:-4] + save_audio_syntax
+                            save_name = save_name[0:-4] + save_audio_extension
                             save_path = save_data_path + "\\" + save_name
                             cut_data = cut_data.astype("int16")
                             cut_data = cut_data.tobytes()
 
                             sound = AudioSegment(data=cut_data, sample_width=2, frame_rate=fs, channels=1)
-                            if save_audio_syntax == ".mp3":
+                            if save_audio_extension == ".mp3":
                                 sound.export(save_path, format="mp3", bitrate="128k")
-                            elif save_audio_syntax == ".wav":
+                            elif save_audio_extension == ".wav":
                                 sound.export(save_path, format="wav")
                             print("Saving file path：", save_path)
                             count += 1
@@ -116,7 +116,7 @@ def caesar():
     parser.add_argument('--data_path', default="")
     parser.add_argument('--save_path', default="")
     parser.add_argument('--cut_second', default=5, help="cut audio slice time")
-    parser.add_argument('--save_audio_syntax', default=".mp3", help="save audio syntax ,mp3 or wav")
+    parser.add_argument('--save_audio_extension', default=".mp3", help="save audio syntax ,mp3 or wav")
     parser.add_argument('--min_audio_num', default=10, help="label audio min num")
     args = parser.parse_args()
 
@@ -125,7 +125,7 @@ def caesar():
         sort_class_label(args.data_path, args.save_path, args.min_audio_num)
     elif args.cut_data:
         print("cutting data")
-        cut_audio(args.data_path, args.save_path, args.cut_second, args.save_audio_syntax)
+        cut_audio(args.data_path, args.save_path, args.cut_second, args.save_audio_extension)
     else:
         print("Nothing have done")
 
