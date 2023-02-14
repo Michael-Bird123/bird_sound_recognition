@@ -31,6 +31,39 @@ def sort_class_label(data_path, save_path, min_audio_num=10):
     df.to_excel(save_path)
 
 
+def mp3_to_wav_all_file(data_path, save_path):
+    for root, dirs, files in os.walk(data_path):
+        # print("root:", root)
+        # print("dirs:", dirs)
+        # print("files", files)
+        if files:
+            # print(files)
+            root_split = root.split(os.path.sep)
+            # print(root_split)
+            index = root_split.index(root_split[-1])
+            save_data_path = save_path
+
+            for i in range(index + 1, len(root_split)):
+                save_data_path = save_data_path + "\\" + root_split[i]
+
+            print(save_data_path)
+            if not os.path.exists(save_data_path):
+                os.makedirs(save_data_path)
+
+            for audio_name in files:
+                if not audio_name.endswith(".mp3"):
+                    continue
+
+                mp3_filename = root + "\\" + audio_name
+                wav_filename = save_data_path + "\\" + audio_name[0:-4] + ".wav"
+                mp3_to_wav(mp3_filename, wav_filename)
+
+
+def mp3_to_wav(mp3_filename, wav_filename):
+    mp3_file = AudioSegment.from_mp3(file=mp3_filename)
+    mp3_file.export(wav_filename, format="wav")
+
+
 def cut_audio(data_path, save_path, cut_second=5, save_audio_extension=".mp3"):
     if data_path == "":
         print("data path is null.")
@@ -113,6 +146,7 @@ def caesar():
     parser = argparse.ArgumentParser()
     parser.add_argument('--sort_label', action='store_true', help="enable sort label")
     parser.add_argument('--cut_data', action='store_true', help="enable cut data")
+    parser.add_argument('--mp3_to_wav', action='store_true', help="enable mp3 to wav")
     parser.add_argument('--data_path', default="")
     parser.add_argument('--save_path', default="")
     parser.add_argument('--cut_second', default=5, help="cut audio slice time")
@@ -120,12 +154,19 @@ def caesar():
     parser.add_argument('--min_audio_num', default=10, help="label audio min num")
     args = parser.parse_args()
 
+    if args.sort_label + args.cut_data + args.mp3_to_wav > 1:
+        print("error")
+        return -1
+
     if args.sort_label:
         print("sorting label")
         sort_class_label(args.data_path, args.save_path, args.min_audio_num)
     elif args.cut_data:
         print("cutting data")
         cut_audio(args.data_path, args.save_path, args.cut_second, args.save_audio_extension)
+    elif args.mp3_to_wav:
+        print("mp3 to wav")
+        mp3_to_wav_all_file(args.data_path, args.save_path)
     else:
         print("Nothing have done")
 
