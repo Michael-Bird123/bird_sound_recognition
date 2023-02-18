@@ -61,7 +61,9 @@ That all!It is easy to use the code to train you bird net.
 
 Remarks:
 ①make sure you bird dataset have enough data(more than 50).
+
 ②The audio data and dataset in this github are just the examples.
+
 ③you need to download the bird you want from the Xeno-canto.
 
 
