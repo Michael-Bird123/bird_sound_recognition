@@ -9,7 +9,7 @@ from pydub import AudioSegment
 from torchlibrosa import Spectrogram, LogmelFilterBank
 
 
-def sort_class_label(data_path, save_path, min_audio_num=10):
+def sort_class_label(data_path, save_path):
     if data_path == "":
         print("data path is null.")
         return -1
@@ -18,12 +18,10 @@ def sort_class_label(data_path, save_path, min_audio_num=10):
     Bird_labels = class_labels
     Bird_labels_copy = class_labels.copy()
     for class_label in Bird_labels_copy:
+        print(class_label)
         label_path = data_path + "\\" + class_label
         audio_names = os.listdir(label_path)
-        if len(audio_names) < min_audio_num:
-            Bird_labels.remove(class_label)
-        else:
-            num_data.append(len(audio_names))
+        num_data.append(len(audio_names))
 
     xlsx_data = {'Bird_labels': Bird_labels, 'num_audio': num_data}
     if save_path == "":
@@ -229,7 +227,7 @@ def caesar():
 
     if args.sort_label:
         print("sorting label")
-        sort_class_label(args.data_path, args.save_path, args.min_audio_num)
+        sort_class_label(args.data_path, args.save_path)
     elif args.cut_data:
         print("cutting data")
         cut_audio(args.data_path, args.save_path, args.cut_second, args.save_audio_syntax)

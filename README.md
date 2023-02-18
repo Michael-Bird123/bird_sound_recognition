@@ -44,3 +44,24 @@ After cut data,we should extract the mel-specgram for train.
 ```
 python process_dataset.py --extract_feature --data_path ./cut_data/xeno-canto-dataset  --save_path ./bird_dataset
 ```
+
+③Third step(Train the network)
+
+```
+python train.py --train_model --dataset_path ./bird_dataset  --save_model_path ./Save_Model/Cnn14_sed"
+```
+
+④The last step(inference the audio)
+
+```
+python inference.py --audio_path ./audio_you_want --model_path ./Save_Model/Cnn14_sed/best_loss.pkl"
+```
+
+That all!It is easy to use the code to train you bird net.
+
+Remarks:
+①make sure you bird dataset have enough data(more than 50).
+②The audio data and dataset in this github are just the examples.
+③you need to download the bird you want from the Xeno-canto.
+
+
