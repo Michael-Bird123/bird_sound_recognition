@@ -60,6 +60,7 @@ python inference.py --audio_path ./audio_you_want --model_path ./Save_Model/Cnn1
 That all!It is easy to use the code to train you bird net.
 
 Remarks:
+
 ①make sure you bird dataset have enough data(more than 50).
 
 ②The audio data and dataset in this github are just the examples.
