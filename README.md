@@ -48,13 +48,13 @@ python process_dataset.py --extract_feature --data_path ./cut_data/xeno-canto-da
 ③Third step(Train the network)
 
 ```
-python train.py --train_model --dataset_path ./bird_dataset  --save_model_path ./Save_Model/Cnn14_sed"
+python train.py --train_model --dataset_path ./bird_dataset  --save_model_path ./Save_Model/Cnn14_sed
 ```
 
 ④The last step(inference the audio)
 
 ```
-python inference.py --audio_path ./audio_you_want --model_path ./Save_Model/Cnn14_sed/best_loss.pkl"
+python inference.py --audio_path ./audio_you_want --model_path ./Save_Model/Cnn14_sed/best_loss.pkl
 ```
 
 That all!It is easy to use the code to train you bird net.
